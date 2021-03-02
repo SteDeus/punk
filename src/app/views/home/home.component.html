@@ -1,0 +1,52 @@
+<div class="header pb-lg-3">
+    <form [formGroup]="filtersForm" class="container col-12 col-lg-9 d-flex flex-wrap align-items-end">
+    
+        
+        <mat-form-field floatLabel="never" class="flex-grow-1">
+            <input matInput formControlName="beer_name" placeholder="Filtra per nome o abbinamento">
+        </mat-form-field>
+        <div class="ml-lg-5 ml-sm-3">
+            <label class="font-sm">Gradazione alcolica (da - a)</label>
+            <div>
+                <mat-form-field floatLabel="never" >
+                    <input type="number" matInput formControlName="abv_gt" placeholder="DA">
+                </mat-form-field>
+                <mat-form-field floatLabel="never" class="ml-sm-1">
+                    <input type="number" matInput formControlName="abv_lt" placeholder="A">
+                </mat-form-field>
+            </div>
+        </div>
+    
+    </form>
+</div>
+
+<div class="content pt-lg-4 pt-2">
+    <div class="container col-12 col-lg-9">
+        <div class="d-flex section-string">
+            <label class="flex-grow-1">{{beersListService.beerList.length}} birre</label>
+
+            <mat-icon *ngIf="beersListService.beerPageIndexes[0] != 1" class="pag-button" (click)="changePage(1)">first_page</mat-icon>
+            <label class="pag-button mr-3" [ngClass]="beersListService.beerPageIndexes[0] == beersListService.beerPageIndex ? 'pag-button-selected': ''" (click)="changePage(beersListService.beerPageIndexes[0])">{{ beersListService.beerPageIndexes[0] }}</label>
+            <label class="pag-button mr-3" [ngClass]="beersListService.beerPageIndexes[1] == beersListService.beerPageIndex ? 'pag-button-selected': ''" (click)="changePage(beersListService.beerPageIndexes[1])">{{ beersListService.beerPageIndexes[1] }}</label>
+            <label class="pag-button" [ngClass]="beersListService.beerPageIndexes[2] == beersListService.beerPageIndex ? 'pag-button-selected': ''" (click)="changePage(beersListService.beerPageIndexes[2])">{{ beersListService.beerPageIndexes[2] }}</label>
+            <mat-icon *ngIf="beersListService.beerPageIndexes[2] <= beersListService.beerList.length/environment.max_per_page" class="pag-button" (click)="changePage(beersListService.beerList.length/environment.max_per_page)" >last_page</mat-icon>
+        </div>
+
+        <punk-beers-list [beersToShow]="beersListService.beerListToShow"></punk-beers-list>
+
+        <div class="d-flex justify-content-end section-string">
+
+            <mat-icon *ngIf="beersListService.beerPageIndexes[0] != 1" class="pag-button" (click)="changePage(1)">first_page</mat-icon>
+            <label class="pag-button mr-3" [ngClass]="beersListService.beerPageIndexes[0] == beersListService.beerPageIndex ? 'pag-button-selected': ''" (click)="changePage(beersListService.beerPageIndexes[0])">{{ beersListService.beerPageIndexes[0] }}</label>
+            <label class="pag-button mr-3" [ngClass]="beersListService.beerPageIndexes[1] == beersListService.beerPageIndex ? 'pag-button-selected': ''" (click)="changePage(beersListService.beerPageIndexes[1])">{{ beersListService.beerPageIndexes[1] }}</label>
+            <label class="pag-button" [ngClass]="beersListService.beerPageIndexes[2] == beersListService.beerPageIndex ? 'pag-button-selected': ''" (click)="changePage(beersListService.beerPageIndexes[2])">{{ beersListService.beerPageIndexes[2] }}</label>
+            <mat-icon *ngIf="beersListService.beerPageIndexes[2] <= beersListService.beerList.length/environment.max_per_page" class="pag-button" (click)="changePage(beersListService.beerList.length/environment.max_per_page)" >last_page</mat-icon>
+        </div>
+    </div>
+</div>
+<!-- <label style="margin-right: 5em;"></label>
+<label></label>
+<div class="align-horizontal" *ngFor="let beerToShow of beersListService.beerListToShow">
+    <button [routerLink]="'/show/' + beerToShow.beer.id" >{{beerToShow.beer.name}}</button>
+    <button style="margin-left: 1em;" (click)="changeFavouriteBeerState(beerToShow)">{{ beerToShow.favourite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}}</button>
+</div> -->

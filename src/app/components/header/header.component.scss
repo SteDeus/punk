@@ -1,0 +1,14 @@
+.header-button {
+    border: solid 1px var(--header-button-deactivated);
+    padding: 0 0.5em 0 0.5em;
+    text-align: center;
+    color: var(--header-button-deactivated);
+}
+
+.header-button-active, .header-button:hover {
+    text-align: center;
+    padding: 0 0.5em 0 0.5em;
+    border: solid 1px var(--form-focus);
+    color: var(--form-focus);
+    cursor: pointer;
+}

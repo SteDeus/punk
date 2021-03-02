@@ -1,0 +1,83 @@
+<div class="header position-relative py-5">
+    <div
+        [style.visibility]="beersToShow?.prev ? 'visible': 'hidden'"
+        (click)="prevBeer()"
+        class="justify-content-between align-items-center d-flex position-absolute flex-row-reverse flex-lg-row px-4 py-3">
+        <mat-icon >
+            arrow_back_ios_new
+        </mat-icon>
+        <span>{{beersToShow?.prev?.name}}</span>
+    </div>
+
+    <div
+        [style.visibility]="beersToShow?.next ? 'visible': 'hidden'"
+        (click)="nextBeer()"
+        class="justify-content-between align-items-center d-flex position-absolute px-4 py-3">
+        <span>{{beersToShow?.next?.name}}</span>
+        <mat-icon >
+            arrow_forward_ios
+        </mat-icon>
+    </div>
+
+    <div class="container col-12 col-lg-9 pb-lg-1 pb-5">
+        <div class="ml-5 ml-lg-0 position-relative">
+            <mat-icon (click)="changeFavouriteBeerState(beersToShow?.active)" class="position-absolute">
+                {{ (beersToShow?.active | checkIfInFavourite : favouriteBeersService.favouriteBeers) ? "star" : "star_border"}}
+            </mat-icon>
+            <div class="col-10 col-lg-9">
+                <div class="title">
+                    {{beersToShow?.active?.name}}
+                </div>
+                <div class="sub-title pb-5 pb-md-0">
+                    {{beersToShow?.active?.tagline}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- image -->
+<div class="container col-12 col-lg-9 position-relative beer-img-container">
+    <div class="d-flex justify-content-md-end justify-content-center">
+        <div class="d-flex justify-content-center">
+            <div class="position-absolute circle"></div>
+            <img class="position-absolute w-lg-5" src="{{beersToShow?.active?.image_url}}">
+        </div>
+    </div>
+</div>
+
+<!-- description -->
+<div class="container col-12 col-lg-9 py-lg-5 py-5 ">
+    <div class="pt-lg-1 pt-5 col-12 col-lg-9">
+        <h5 class="section-string pt-lg-0 pt-5">
+            Description
+        </h5>
+        <div class="description pt-3">
+            {{beersToShow?.active?.description}}
+        </div>
+    </div>
+</div>
+
+<div class="other-infos py-3">
+    <div class="container col-12 col-lg-9 d-flex justify-content-around flex-wrap">
+        <span>ABV: {{beersToShow?.active?.abv}}%</span>
+        <span>SRM: {{beersToShow?.active?.srm}}</span>
+        <span>IBC: {{beersToShow?.active?.ebc}}</span>
+        <span>IBU {{beersToShow?.active?.ibu}}</span>
+        <span>PH: {{beersToShow?.active?.ph}}</span>
+    </div>
+</div>
+
+<div class="container col-12 col-lg-9 pt-5">
+    <h5 class="section-string">
+        Abbinamenti
+    </h5>
+    <div class="d-flex flex-wrap justify-content-between">
+        <div
+            *ngFor="let food of beersToShow?.active?.food_pairing"
+            class="square d-flex text-center justify-content-center align-items-center mr-lg-4 mr-0 py-5 px-3 my-lg-4 my-3 ">
+                {{food | json}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="py-4 header">
+    <nav class="container col-12 col-lg-9 navbar navbar-expand-lg d-flex justify-content-between align-items-center">
+            <div
+                *ngIf="router.url == '/home'"
+                class="navbar-brand">
+                    <h1 class="title" >
+                        BREWDOG
+                    </h1>
+                
+            </div>
+            <button class="text-light navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+                &#9776;
+            </button>
+            <div [ngbCollapse]="isMenuCollapsed" [ngClass]="router.url == '/home' ? 'flex-grow-0' : ''" class="collapse navbar-collapse">
+                <div
+                    *ngIf="router.url != '/home'"
+                    class="header-button mr-auto"
+                    [routerLink]="'/home'">
+                        <a>Tutte le birre</a>
+                </div>
+                <ul class="navbar-nav">
+                    
+                    <li
+                        class="nav-item header-button mr-lg-3"
+                        (click)="isMenuCollapsed = true;toRandomBeer()">
+                            <a>Una birra random</a>
+                    </li>
+                    <li
+                        (click)="isMenuCollapsed = true"
+                        [ngClass]="(router.url === '/favourite' ? 'header-button-active' : 'header-button')"
+                        class="nav-item"
+                        [routerLink]="'/favourite'">
+                            <a>Preferiti</a>
+                    </li>
+                </ul>
+            </div>
+
+    </nav>
+</div>

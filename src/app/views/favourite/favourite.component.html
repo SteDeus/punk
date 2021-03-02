@@ -1,0 +1,9 @@
+<div class="content pt-lg-4 pt-2">
+    <div class="container col-12 col-lg-9">
+        <label class="section-string">{{favouriteList.length}} birre</label>
+        <punk-beers-list
+            [beersToShow]="favouriteList"
+            (favStateChanged)="updateFavouriteList($event)">
+        </punk-beers-list>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="p-lg-3 p-2 my-lg-2 my-1 d-flex beer-instance" *ngFor="let beerToShow of beersToShow" [routerLink]="'/show/' + beerToShow.id">
+    <label class="flex-grow-1 beer-name" >{{beerToShow.name}}</label>
+    <div class="d-flex">
+        <label >{{beerToShow.abv}}%</label>
+        <mat-icon class="fav-button ml-lg-3" punkClickStopPropagation (click)="changeFavouriteBeerState(beerToShow)">
+            {{ (beerToShow | checkIfInFavourite : favouriteBeersService.favouriteBeers) ? "star" : "star_border"}}
+        </mat-icon>
+    </div>
+</div>
