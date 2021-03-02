@@ -73,10 +73,10 @@ export class ShowComponent implements OnInit, OnDestroy {
       res => {
         if (res[0]) {
           this.beersToShow.next = res[0];
-          this.router.navigate(["../" + ((this.beersToShow.active.id as number))], { relativeTo: this.route });
         } else {
           delete this.beersToShow.next;
         }
+        this.router.navigate(["../" + ((this.beersToShow.active.id as number))], { relativeTo: this.route });
       }
     );
   }
@@ -88,10 +88,10 @@ export class ShowComponent implements OnInit, OnDestroy {
       res => {
         if (res[0]) {
           this.beersToShow.prev = res[0];
-          this.router.navigate(["../" + ((this.beersToShow.active.id as number))], { relativeTo: this.route });
         } else {
           delete this.beersToShow.prev;
         }
+        this.router.navigate(["../" + ((this.beersToShow.active.id as number))], { relativeTo: this.route });
       }
     );
   }
