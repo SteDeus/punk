@@ -44,11 +44,12 @@ export class BeersListService {
       if (this.updatedUrlFilters != urlFilters || this.loadingService.busyCount == 0){
         console.log("stop", urlFilters);
         clearInterval(polling);
+        if (this.updatedUrlFilters == urlFilters) {
+          this.getBeers(1, 80, urlFilters, []).subscribe();
+        }
       }
     }, 100);
-    if (this.updatedUrlFilters == urlFilters) {
-      this.getBeers(1, 80, urlFilters, []).subscribe();
-    }
+    
   }
 
   getBeers(page: number, per_page: number, urlFilters: string, tempBeerList: Beer[]): Observable<any> {
