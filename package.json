@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o --port=5000",
-    "build": "ng build --prod",
+    "build:local": "ng build --prod",
+    "build:deploy": "ng build --prod --base-href 'https://SteDeus.github.io/punk/'",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -36,6 +37,7 @@
     "@angular/compiler-cli": "~11.2.1",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "angular-cli-ghpages": "^1.0.0-rc.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
