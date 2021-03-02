@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Beer } from 'src/app/models/beer.model';
 import { CheckIfInFavouritePipe } from 'src/app/pipes/check-if-in-favourite.pipe';
 import { BeerDetailsService } from 'src/app/services/beer-details.service';
@@ -15,6 +15,7 @@ export class ShowComponent implements OnInit, OnDestroy {
   beersToShow: {[key: string]: Beer} = {}; // active, prev, next
   
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     public beerDetailsService: BeerDetailsService,
     public favouriteBeersService: FavouriteBeersService,
@@ -23,31 +24,34 @@ export class ShowComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
       let beerId: number = parseInt( paramMap.get("beerId") as string );
-      let ids: number[] = [beerId-1, beerId+1];
-      if (beerId == this.beerDetailsService.randomBeerToShow.id) {
-        this.beersToShow.active = this.beerDetailsService.randomBeerToShow;
-      } else {
-        ids.push(beerId);
-      }
-      this.beerDetailsService.getBeers(ids).subscribe(
-        res => {
-          for (let i = 0; i < res.length; i++) {
-            switch (res[i].id) {
-              case beerId+1:
-                this.beersToShow.next = res[i];
-                break;
-              case beerId-1:
-                this.beersToShow.prev = res[i];
-                break;
-              case beerId:
-                this.beersToShow.active = res[i];
-                break;
-              default:
-                break;
+      if (Object.keys(this.beersToShow).length < 3) {
+        let ids: number[] = [beerId-1, beerId+1];
+        if (beerId == this.beerDetailsService.randomBeerToShow.id) {
+          this.beersToShow.active = this.beerDetailsService.randomBeerToShow;
+          this.beerDetailsService.randomBeerToShow = {};
+        } else {
+          ids.push(beerId);
+        }
+        this.beerDetailsService.getBeers(ids).subscribe(
+          res => {
+            for (let i = 0; i < res.length; i++) {
+              switch (res[i].id) {
+                case beerId+1:
+                  this.beersToShow.next = res[i];
+                  break;
+                case beerId-1:
+                  this.beersToShow.prev = res[i];
+                  break;
+                case beerId:
+                  this.beersToShow.active = res[i];
+                  break;
+                default:
+                  break;
+              }
             }
           }
-        }
-      );
+        );
+      }
     });
   }
 
@@ -69,11 +73,12 @@ export class ShowComponent implements OnInit, OnDestroy {
       res => {
         if (res[0]) {
           this.beersToShow.next = res[0];
+          this.router.navigate(["../" + ((this.beersToShow.active.id as number))], { relativeTo: this.route });
         } else {
           delete this.beersToShow.next;
         }
       }
-    )
+    );
   }
 
   prevBeer() {
@@ -83,11 +88,12 @@ export class ShowComponent implements OnInit, OnDestroy {
       res => {
         if (res[0]) {
           this.beersToShow.prev = res[0];
+          this.router.navigate(["../" + ((this.beersToShow.active.id as number))], { relativeTo: this.route });
         } else {
           delete this.beersToShow.prev;
         }
       }
-    )
+    );
   }
 
 }

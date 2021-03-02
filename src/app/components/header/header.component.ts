@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   toRandomBeer() {
     this.beerDetailsService.getRandomBeer().subscribe(
       res => {
-        this.router.navigate(["../show/" + this.beerDetailsService.randomBeerToShow.id], { relativeTo: this.route })
+        this.router.navigate(["../show/" + this.beerDetailsService.randomBeerToShow.id], { relativeTo: this.route });
       }
     )
   }
