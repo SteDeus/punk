@@ -1,6 +1,7 @@
 # Punk
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
+You can see it live [here](https://stedeus.github.io/punk/home)
 
 ## Development server
 
